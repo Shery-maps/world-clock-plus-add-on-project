@@ -12,10 +12,12 @@ function updateTime() {
   }
 
   let sidneyElement = document.querySelector("#sidney");
+  console.log({ sidneyElement });
   if (sidneyElement) {
     let sidneyDateElement = sidneyElement.querySelector(".date");
     let sidneyTimeElement = sidneyElement.querySelector(".time");
-    let sidneyTime = moment().tz("Australia/Sidney");
+    let sidneyTime = moment().tz("Australia/Sydney");
+    console.log({ sidneyTime });
 
     sidneyDateElement.innerHTML = sidneyTime.format("MMMM Do YYYY");
     sidneyTimeElement.innerHTML = sidneyTime.format(
@@ -23,11 +25,11 @@ function updateTime() {
     );
   }
 
-  let shanghaiElement = document.querySelector("#harare");
+  let shanghaiElement = document.querySelector("#shanghai");
   if (shanghaiElement) {
     let shanghaiDateElement = shanghaiElement.querySelector(".date");
     let shanghaiTimeElement = shanghaiElement.querySelector(".time");
-    let shanghaiTime = moment().tz("Asia/Shaghai");
+    let shanghaiTime = moment().tz("Asia/Shanghai");
 
     shanghaiDateElement.innerHTML = shanghaiTime.format("MMMM Do YYYY");
     shanghaiTimeElement.innerHTML = shanghaiTime.format(
@@ -47,3 +49,6 @@ function updateTime() {
     );
   }
 }
+
+updateTime();
+setInterval(updateTime, 1000);
