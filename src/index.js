@@ -6,35 +6,21 @@ function updateTime() {
     let harareTime = moment().tz("Africa/Harare");
 
     harareDateElement.innerHTML = harareTime.format("MMMM Do YYYY");
-    harareTimeElement.innerHTML = harareTime.format(
-      "h:mm:ss [<small>]A[</small>]"
-    );
+    harareTimeElement.innerHTML = `${harareTime.format(
+      "h:mm:ss"
+    )} <small>${harareTime.format("A")}</small>`;
   }
 
-  let sidneyElement = document.querySelector("#sidney");
-  console.log({ sidneyElement });
-  if (sidneyElement) {
-    let sidneyDateElement = sidneyElement.querySelector(".date");
-    let sidneyTimeElement = sidneyElement.querySelector(".time");
-    let sidneyTime = moment().tz("Australia/Sydney");
-    console.log({ sidneyTime });
+  let sydneyElement = document.querySelector("#sydney");
+  if (sydneyElement) {
+    let sydneyDateElement = sydneyElement.querySelector(".date");
+    let sydneyTimeElement = sydneyElement.querySelector(".time");
+    let sydneyTime = moment().tz("Australia/Sydney");
 
-    sidneyDateElement.innerHTML = sidneyTime.format("MMMM Do YYYY");
-    sidneyTimeElement.innerHTML = sidneyTime.format(
-      "h:mm:ss [<small>]A[</small>]"
-    );
-  }
-
-  let shanghaiElement = document.querySelector("#shanghai");
-  if (shanghaiElement) {
-    let shanghaiDateElement = shanghaiElement.querySelector(".date");
-    let shanghaiTimeElement = shanghaiElement.querySelector(".time");
-    let shanghaiTime = moment().tz("Asia/Shanghai");
-
-    shanghaiDateElement.innerHTML = shanghaiTime.format("MMMM Do YYYY");
-    shanghaiTimeElement.innerHTML = shanghaiTime.format(
-      "h:mm:ss [<small>]A[</small>]"
-    );
+    sydneyDateElement.innerHTML = sydneyTime.format("MMMM Do YYYY");
+    sydneyTimeElement.innerHTML = `${sydneyTime.format(
+      "h:mm:ss"
+    )} <small>${sydneyTime.format("A")}</small>`;
   }
 
   let lagosElement = document.querySelector("#lagos");
@@ -44,11 +30,36 @@ function updateTime() {
     let lagosTime = moment().tz("Africa/Lagos");
 
     lagosDateElement.innerHTML = lagosTime.format("MMMM Do YYYY");
-    lagosTimeElement.innerHTML = lagosTime.format(
-      "h:mm:ss [<small>]A[</small>]"
-    );
+    lagosTimeElement.innerHTML = `${lagosTime.format(
+      "h:mm:ss"
+    )} <small>${lagosTime.format("A")}</small>`;
   }
+}
+
+function updateCity(event) {
+  let cityTimeZone = event.target.value;
+  if (cityTimeZone === "Current") {
+    cityTimeZone = moment.tz.guess();
+  }
+
+  let cityName = cityTimeZone.replace("_", " ").split("/")[1];
+  let cityTime = moment().tz(cityTimeZone);
+
+  let citiesElement = document.querySelector("#cities");
+  citiesElement.innerHTML = `
+    <div class="city">
+      <div>
+        <h2>${cityName}</h2>
+        <div class="date">${cityTime.format("MMMM Do YYYY")}</div> 
+      </div>
+      <div class="time">${cityTime.format("h:mm:ss")} <small>${cityTime.format(
+    "A"
+  )}</small></div>
+    </div>`;
 }
 
 updateTime();
 setInterval(updateTime, 1000);
+
+let citiesSelectElement = document.querySelector("#city");
+citiesSelectElement.addEventListener("change", updateCity);
